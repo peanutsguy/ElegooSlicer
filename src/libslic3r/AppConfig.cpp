@@ -51,15 +51,15 @@ static const std::string VERSION_CHECK_URL_STABLE = "https://api.github.com/repo
 static const std::string VERSION_CHECK_URL = "https://api.github.com/repos/ELEGOO-3D/ElegooSlicer/releases";
 
 //DEV TEST PROD
-#if ELEGOO_TEST
-static const std::string PROFILE_UPDATE_URL = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer_profiles";
-static const std::string ELEGOO_UPDATE_URL_STABLE = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer/update_config.test.json";
-static const std::string MESSAGE_CHECK_URL = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer/message.test.json";
-#else
+// #if ELEGOO_TEST
+// static const std::string PROFILE_UPDATE_URL = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer_profiles";
+// static const std::string ELEGOO_UPDATE_URL_STABLE = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer/update_config.test.json";
+// static const std::string MESSAGE_CHECK_URL = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer/message.test.json";
+// #else
 static const std::string PROFILE_UPDATE_URL = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer_profiles";
 static const std::string ELEGOO_UPDATE_URL_STABLE = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer/update_config.json";
 static const std::string MESSAGE_CHECK_URL = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer/message.json";
-#endif
+// #endif
 
 
 static const std::string MODELS_STR = "models";
@@ -1371,11 +1371,11 @@ std::string AppConfig::profile_update_url() const
         << "00.00";
     std::string version_str = oss.str();
     std::string profile_update_url;
-    #if ELEGOO_TEST
-        profile_update_url = PROFILE_UPDATE_URL + "/elegoo.ota.profiles." + version_str + ".test.json";
-    #else   
+    // #if ELEGOO_TEST
+    //     profile_update_url = PROFILE_UPDATE_URL + "/elegoo.ota.profiles." + version_str + ".test.json";
+    // #else   
         profile_update_url = PROFILE_UPDATE_URL + "/elegoo.ota.profiles." + version_str + ".json";
-    #endif
+    // #endif
 
     return profile_update_url;
 }
