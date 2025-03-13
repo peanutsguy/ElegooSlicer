@@ -2800,7 +2800,7 @@ msgid "GNU Affero General Public License, version 3"
 msgstr "GNU Affero Licence Publique Générale, version 3"
 
 msgid "ElegooSlicer is based on OrcaSlicer"
-msgstr ""
+msgstr "ElegooSlicer est basé sur OrcaSlicer"
 
 msgid "Libraries"
 msgstr "Bibliothèques"
@@ -4634,7 +4634,7 @@ msgid "Check for Update"
 msgstr "Vérifier la mise à jour"
 
 msgid "Check for Presets Update"
-msgstr ""
+msgstr "Vérifier la mise à jour des préréglages"
 
 msgid "Open Network Test"
 msgstr "Ouvrir le Test de Réseau"
@@ -6759,7 +6759,7 @@ msgstr ""
 "Si cette option est activée, des conseils utiles s'affichent au démarrage."
 
 msgid "Flushing volumes: Auto-calculate everytime the color changed."
-msgstr ""
+msgstr "Volumes de purge : auto-calculé à chaque changement de couleur"
 
 msgid "If enabled, auto-calculate everytime the color changed."
 msgstr ""

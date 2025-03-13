@@ -1,6 +1,6 @@
 {
     "name": "Elegoo",
-    "version": "01.01.07.00",
+    "version": "01.01.08.01",
     "force_update": "0",
     "description": "Elegoo configurations",
     "machine_model_list": [
@@ -1423,6 +1423,14 @@
         {
             "name": "Elegoo PLA Matte @EOS Giga",
             "sub_path": "filament/EOSGIGA/Elegoo PLA Matte @EOS Giga.json"
+        },
+        {
+            "name": "Elegoo RAPID PETG @EOS Giga",
+            "sub_path": "filament/EOSGIGA/Elegoo RAPID PETG @EOS Giga.json"
+        },
+        {
+            "name": "Elegoo RAPID PLA+ @EOS Giga",
+            "sub_path": "filament/EOSGIGA/Elegoo RAPID PLA+ @EOS Giga.json"
         },
         {
             "name": "Generic ABS",

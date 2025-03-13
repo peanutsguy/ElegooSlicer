@@ -52,9 +52,9 @@ static const std::string VERSION_CHECK_URL = "https://api.github.com/repos/ELEGO
 
 //DEV TEST PROD
 // #if ELEGOO_TEST
-// static const std::string PROFILE_UPDATE_URL = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer_profiles";
-// static const std::string ELEGOO_UPDATE_URL_STABLE = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer/update_config.test.json";
-// static const std::string MESSAGE_CHECK_URL = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer/message.test.json";
+// static const std::string PROFILE_UPDATE_URL = "";
+// static const std::string ELEGOO_UPDATE_URL_STABLE = "";
+// static const std::string MESSAGE_CHECK_URL = "";
 // #else
 static const std::string PROFILE_UPDATE_URL = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer_profiles";
 static const std::string ELEGOO_UPDATE_URL_STABLE = "https://elegoo-downloads.oss-us-west-1.aliyuncs.com/software/ElegooSlicer/update_config.json";
@@ -1370,11 +1370,16 @@ std::string AppConfig::profile_update_url() const
         << std::setw(2) << std::setfill('0') << elegoo_version.min() << "."
         << "00.00";
     std::string version_str = oss.str();
+
     std::string profile_update_url;
+
+    auto from_settings = get("profile_update_url");
+    profile_update_url = from_settings.empty() ? PROFILE_UPDATE_URL : from_settings;
+
     // #if ELEGOO_TEST
-    //     profile_update_url = PROFILE_UPDATE_URL + "/elegoo.ota.profiles." + version_str + ".test.json";
+    //     profile_update_url = profile_update_url + "/elegoo.ota.profiles." + version_str + ".test.json";
     // #else   
-        profile_update_url = PROFILE_UPDATE_URL + "/elegoo.ota.profiles." + version_str + ".json";
+        profile_update_url = profile_update_url + "/elegoo.ota.profiles." + version_str + ".json";
     // #endif
 
     return profile_update_url;
@@ -1477,7 +1482,8 @@ std::string AppConfig::getSystemLanguage(){
 }
 
 std::string AppConfig::message_check_url(){
-    return MESSAGE_CHECK_URL;
+    auto from_settings = get("message_check_url");
+    return from_settings.empty() ? MESSAGE_CHECK_URL : from_settings;
 }
 void AppConfig::set_last_pop_message_version(const std::string& version){
     set("message", "last_pop_message_version", version);

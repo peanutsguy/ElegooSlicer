@@ -11,5 +11,6 @@
         "Elegoo Neptune 4 Pro 0.2 nozzle"
     ],
 	"default_acceleration": "6000",
+	"min_width_top_surface": "50%",
 	"outer_wall_acceleration": "5000"
 }

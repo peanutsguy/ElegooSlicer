@@ -68,14 +68,47 @@ inline void export_thumbnails_to_file(ThumbnailsGeneratorCallback&              
                             output("; bigtree thumbnail end\r\n\r\n");
                     }
                     else if (format == GCodeThumbnailsFormat::ColPic) {
+                        std::string prefix;
                         if (first_ColPic) {
-                            output((boost::format("\n\n;gimage:%s\n\n") % reinterpret_cast<char*>(compressed->data)).str().c_str());
+                            prefix = ";gimage:";
                         } else {
-                            output((boost::format("\n\n;simage:%s\n\n") % reinterpret_cast<char*>(compressed->data)).str().c_str());
+                            prefix = ";simage:";
                         }
+                        int prefix_len = prefix.length();
+                        int max_line_len = 1024;
+                        int max_line_data_len = max_line_len - prefix_len - 1;
+                    
+                        auto encoded_data = reinterpret_cast<char*>(compressed->data);
+                        std::vector<uint8_t> data(encoded_data, encoded_data + strlen(encoded_data));
+                        int data_len = data.size();
+                        int lines_count = data_len / max_line_data_len;
+                        int append_len = max_line_data_len - 3 - (data_len % max_line_data_len);
+                    
+                        std::string result;
+                        for (int i = 0; i < data_len; ++i) {
+                            if (i % max_line_data_len == 0) {
+                                if (i > 0) {
+                                    result += '\r';
+                                    if (i == lines_count * max_line_data_len) {
+                                        result += ';';
+                                    }
+                                }
+                                result += prefix;
+                            }
+                            result += static_cast<char>(data[i]);
+                        }            
+                        result += "\r;" + std::string(append_len, '0');
+                        result += '\r';
+                        //if (first_ColPic) {
+                        //    output((boost::format("\n\n;gimage:%s\n\n") % reinterpret_cast<char*>(compressed->data)).str().c_str());
+                        //} else {
+                        //    output((boost::format("\n\n;simage:%s\n\n") % reinterpret_cast<char*>(compressed->data)).str().c_str());
+                        //}
+                        output(result.c_str());
                         first_ColPic = false;
                     } 
                     else {
+                        output("\n\n");
                         output("; THUMBNAIL_BLOCK_START\n");
                         std::string encoded;
                         encoded.resize(boost::beast::detail::base64::encoded_size(compressed->size));

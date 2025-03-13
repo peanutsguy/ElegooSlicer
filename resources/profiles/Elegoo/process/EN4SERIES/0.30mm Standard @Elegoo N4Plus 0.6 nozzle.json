@@ -11,5 +11,6 @@
      "Elegoo Neptune 4 Plus 0.6 nozzle"
   ],
   "default_acceleration": "5000",
+  "min_width_top_surface": "50%",
   "outer_wall_acceleration": "2500"
 }

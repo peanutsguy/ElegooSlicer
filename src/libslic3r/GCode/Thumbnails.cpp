@@ -154,16 +154,20 @@ std::unique_ptr<CompressedImageBuffer> compress_thumbnail_colpic(const Thumbnail
         int rr = row * width;
         for (int col = 0; col < width; ++col) {
             const int pix_idx = 4 * (rr + width - col - 1);
-            r                 = int(pixels[pix_idx]) >> 3;
-            g                 = int(pixels[pix_idx + 1]) >> 2;
-            b                 = int(pixels[pix_idx + 2]) >> 3;
-            a                 = int(pixels[pix_idx + 3]);
-            if (a == 0) {
-                r = 46 >> 3;
-                g = 51 >> 2;
-                b = 72 >> 3;
+            r                 = pixels[pix_idx];
+            g                 = pixels[pix_idx + 1];
+            b                 = pixels[pix_idx + 2];
+            a                 = pixels[pix_idx + 3];
+            if (a < 255) {
+                float alpha = a / 255.0f;
+                r           = static_cast<int>(r * alpha + 255 * (1 - alpha));
+                g           = static_cast<int>(g * alpha + 255 * (1 - alpha));
+                b           = static_cast<int>(b * alpha + 255 * (1 - alpha));
             }
-            rgb             = (r << 11) | (g << 5) | b;
+            r >>= 3;
+            g >>= 2;
+            b >>= 3;
+            rgb                 = (r << 11) | (g << 5) | b;
             color16_buf[time--] = rgb;
         }
     }
@@ -365,8 +369,10 @@ static int Byte8bitEncode(
                 break;
             }
         }
-        tid = (unsigned char) (temp % 32);
-        sid = (unsigned char) (temp / 32);
+        tid = (temp % 32);
+        tid = tid > 255 ? 255 : tid;
+        sid = (temp / 32);
+        sid = sid > 255 ? 255 : sid;
         if (lastid != sid) {
             if (decindex >= decMaxBytesize)
                 goto IL_END;
@@ -391,7 +397,7 @@ static int Byte8bitEncode(
             decindex++;
             if (decindex >= decMaxBytesize)
                 goto IL_END;
-            outputdata[decindex] = (unsigned char) dots;
+            outputdata[decindex] = dots > 255 ? 255 : dots;
             decindex++;
         }
         srcindex += dots;
@@ -407,6 +413,7 @@ static int ColPicEncode(unsigned short* fromcolor16, int picw, int pich, unsigne
     int          cha0, cha1, cha2, fid, minval;
     ColPicHead3* Head0 = nullptr;
     U16HEAD      Listu16[1024];
+    memset(Listu16, 0, sizeof(U16HEAD) * 1024);
     int          ListQty = 0;
     int          enqty   = 0;
     int          dotsqty = picw * pich;

@@ -2671,7 +2671,7 @@ msgid "GNU Affero General Public License, version 3"
 msgstr "GNU Affero 通用公共许可证，版本 3下授权的"
 
 msgid "ElegooSlicer is based on OrcaSlicer"
-msgstr ""
+msgstr "ElegooSlicer 基于 OrcaSlicer"
 
 msgid "Libraries"
 msgstr "库"

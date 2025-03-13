@@ -255,8 +255,14 @@ void PrinterWebView::OnScriptMessage(wxWebViewEvent& event)
         std::string cmd = root.get<std::string>("cmd");
         if (cmd == "open") {
             std::string url = root.get<std::string>("data.url");
+            bool needDownload = root.get<bool>("data.needDownload");
             wxLogMessage("Open URL: %s", url);
-            wxLaunchDefaultBrowser(url);
+            if(needDownload)
+            {
+                GUI::wxGetApp().download(url);
+            }else{
+                wxLaunchDefaultBrowser(url);
+            }
         } else if (cmd == "reload"){
             if (m_url.IsEmpty())return;
             m_loadState = PWLoadState::URL_LOADING;

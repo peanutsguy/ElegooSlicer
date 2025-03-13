@@ -9,7 +9,8 @@
   "default_acceleration": "5000",
   "outer_wall_acceleration": "2500",
   "top_surface_acceleration": "2000",
-   "compatible_printers": [
+  "min_width_top_surface": "50%",
+  "compatible_printers": [
     "Elegoo Neptune 4 Plus 0.4 nozzle"
   ]
 }

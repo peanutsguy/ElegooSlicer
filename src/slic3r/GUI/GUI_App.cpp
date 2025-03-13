@@ -812,8 +812,10 @@ void GUI_App::post_init()
         const auto first_url = this->init_params->input_files.front();
         if (this->init_params->input_files.size() == 1 && is_supported_open_protocol(first_url)) {
             switch_to_3d = true;
-            start_download(first_url);
-            m_open_method = "url";
+            if (m_app_conf_exists && !preset_bundle->printers.only_default_printers()) {
+                start_download(first_url);
+                m_open_method = "url";
+            } 
         } else {
             switch_to_3d = true;
             if (this->init_params->input_gcode) {

@@ -3,7 +3,7 @@
     "name": "Elegoo PETG PRO @EOS Giga",
     "inherits": "Elegoo PETG PRO @base",
     "from": "system",
-    "setting_id": "EGPETGEOSG00",
+    "setting_id": "EPETGEOSG00",
     "instantiation": "true",
     "filament_max_volumetric_speed": [
       "21"
